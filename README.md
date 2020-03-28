@@ -10,7 +10,7 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 ## Train VECA
 
-+   The files includes twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
++   The files include twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
 
 +   Set the *to_train* option to True otherwise it will just test on previous saved model.
 
