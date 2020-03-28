@@ -1,4 +1,4 @@
-# Eigen component analysis (ECA) introduction
+# component analysis (ECA) introduction
 
 This is the repository for paper *Eigen component analysis: A quantum theory incorporated machine learning technique to find linearly maximum separable components.*
 
@@ -94,9 +94,12 @@ python base_network.py
 
 
 ```
-[comment]: <> (The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments. )
-[comment]: <> (<Email: rzchen2014@gmail.com>)
+[comment]: <The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments.>
+
 ```
 
 
 
+
+
+Email: rzchen2014@gmail.com
