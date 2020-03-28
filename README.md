@@ -12,7 +12,7 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 +   The files include twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
 
-+   Set the *to_train* option to True otherwise it will just test on previous saved model.
++   Set the *to_train* option to be True otherwise it will just test on previous saved model.
 
 +   Then train on Wis1992 should be 
 
@@ -59,7 +59,7 @@ I will upload this part of code later.
                     metrics=['accuracy'])
     ```
 
-+   Set to_train to be True and train on MNIST data set
++   Set *to_train* to be True and train on MNIST data set
 
 ```bash
 python base_network.py
