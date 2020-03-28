@@ -98,11 +98,9 @@ python base_network.py
 
 ```
 
-```
-[//]: # (This may be the most platform independent comment)
-```
 
 
+[//]: #	"Comment"
 
 Email: rzchen2014@gmail.com
 
