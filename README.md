@@ -1,6 +1,102 @@
-# ECA
-This is the repository for paper Eigen component analysis: A quantum theory incorporated machine learning technique to find linearly maximum separable components
+# Eigen component analysis (ECA) introduction
 
-The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments. 
+This is the repository for paper *Eigen component analysis: A quantum theory incorporated machine learning technique to find linearly maximum separable components.*
 
-Email: rzchen2014@gmail.com
+It includes two parts for the experiments, eigen component analysis (ECA) and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
+
+ECA, in my humble opinion which I cannot say in the article,  is a top-ranking feature extraction or dimension reduction algorithm. The obtained eigenfeature matrix (EFM) and eigenfeature-class mapping matrix (ECMM) could be used to conduct the concrete dimension reduction. In ECAN, with the dimension operator, the nonlinear dimension reduction outperforms many classical algorithms which be reported in our future work.  
+
+ I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I chose. I will merge the code and  add some comments to help you understand this project. 
+
+# Quick start
+
+## Train VECA
+
++   The files includes twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
+
++   Set the *to_train* option to True otherwise it will just test on previous saved model.
+
++   Then train on Wis1992 should be 
+
+    ```bash
+    python bc.py
+    ```
+
+## Train AECA
+
+I will upload this part of code later. 
+
+## Train the 2-fold ECAN with AECA on MNIST data set
+
++   Set the dimension operator to be used
+
+    ```python
+    # dimension operator, set quadratic false to use ReLU and neural network (not fully connected)
+    model = build_model_do(
+        state_len, num_classes, 
+        to_raise=True, to_reduce=False, 
+        raise_quadratic=True, reduce_quadratic=True)
+    
+    # using fully connected neural networks as dimension operator
+    # model = build_model_dnn(state_len, num_classes, to_raise=True, to_reduce=True)
+    ```
+
++   Use VECA or AECA
+
+    ```python
+      # vanilla
+      # ECMM = EigenDist
+      # approx
+      ECMM = EigenDistApprox
+    
+      # model.compile(loss=keras.losses.categorical_crossentropy,
+      # model.compile(loss=keras.losses.mean_squared_error,
+      # model.compile(loss=categorical_bernoulli_crossentropy,
+      # vanilla
+      # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
+      # approx
+      model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+                    loss_weights=[0.5, 0.5],
+                    optimizer=keras.optimizers.Adadelta(),
+                    metrics=['accuracy'])
+    ```
+
++   Set to_train to be True and train on MNIST data set
+
+```bash
+python base_network.py
+```
+
+
+
+## Train the 2-fold ECAN with VECA on MNIST data set
+
++   The only difference is in this block of code
+
+```python
+  # vanilla
+  ECMM = EigenDist
+  # approx
+  # ECMM = EigenDistApprox
+
+  # model.compile(loss=keras.losses.categorical_crossentropy,
+  # model.compile(loss=keras.losses.mean_squared_error,
+  # model.compile(loss=categorical_bernoulli_crossentropy,
+  # vanilla
+  model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
+  # approx
+  # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+                loss_weights=[0.5, 0.5],
+                optimizer=keras.optimizers.Adadelta(),
+                metrics=['accuracy'])
+```
+
+
+
+```
+[comment]: <> (The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments. )
+[comment]: <> (<Email: rzchen2014@gmail.com>)
+```
+
+
+
