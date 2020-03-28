@@ -8,6 +8,8 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 # Quick start
 
+The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* will be uploaded later). The base model for training is named with prefix *base*. And ECAN related file are suffixed with *network*. Data loading is implemented in *load_data.py*. The comparison with other models is implemented in *other_models.py*. The obtained EFM, ECMM, RaDO or ReDO are stored in directory *history.* 
+
 ## Train VECA
 
 +   The files include twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
@@ -25,6 +27,8 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 I will upload this part of code later. 
 
 ## Train the 2-fold ECAN with AECA on MNIST data set
+
++   The code for ECAN is in base_network.py. One could change the data_tag to these one mentioned in load_data.py
 
 +   Set the dimension operator to be used
 
