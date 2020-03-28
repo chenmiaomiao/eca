@@ -6,7 +6,7 @@ This is the repository for paper *Eigen component analysis: A quantum theory inc
 
 It includes two parts for the experiments ,ECA and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
 
- I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I chose. I will merge the code and  add some comments to help you understand this project. 
+ I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I choose. I will merge the code and  add some comments to help you understand this project. 
 
 # Quick start
 
