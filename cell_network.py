@@ -28,7 +28,7 @@ from real_eigen import ReduceDimensionIdentity
 from real_eigen import FullConnectedNeuralNetwork, Softmax, EigenDist, EigenDistApprox
 from real_eigen import GATE_FACTOR, MAGIC_CODE, wrap_norm, raise_dim, get_time, generate_class_weights
 from load_data import load_data
-from save_history import save_history
+from save_history_network import save_history
 from other_models_network import lg, lda, qda, svm, compare_all, save_compare_result
 
 batch_size = 128
@@ -36,7 +36,7 @@ epochs = 64
 
 # state_len = 784
 
-WORK_MAGIC_CODE = "DNN_REDO_AECAN"
+WORK_MAGIC_CODE = "REDO_AECAN"
 
 data_tag = "cell"
 
@@ -114,19 +114,19 @@ def build_model_do(
 
   inputs = Input(shape=(1, state_len))
   # 1
-  raise_dimension1 = RaDO(raised_dim, input_shape=(1, state_len))
-  projection1 = Projection(state_len1, input_shape=(1, state_len1))
+  raise_dimension1 = RaDO(raised_dim, input_shape=(1, state_len), name="rado")
+  projection1 = Projection(state_len1, input_shape=(1, state_len1), name="p1")
   proj2prob1 = Proj2Prob(state_len1, input_shape=(1, state_len1))
-  eigen_dist1 = ECMM(num_classes, input_shape=(1, state_len1))
+  eigen_dist1 = ECMM(num_classes, input_shape=(1, state_len1), name="l1")
   flatten1 = Flatten(name="1st_fold")
 
-  reduce_dimension1= ReDO(reduced_dim, input_shape=(1, state_len1))
+  reduce_dimension1= ReDO(reduced_dim, input_shape=(1, state_len1), name="redo")
 
   # 2
   state_len2 = reduced_dim
-  projection2 = Projection(state_len2, input_shape=(1, state_len2))
+  projection2 = Projection(state_len2, input_shape=(1, state_len2), name="p2")
   proj2prob2 = Proj2Prob(state_len2, input_shape=(1, state_len2))
-  eigen_dist2 = ECMM(num_classes, input_shape=(1, state_len2))
+  eigen_dist2 = ECMM(num_classes, input_shape=(1, state_len2), name="l2")
   flatten2 = Flatten(name="2nd_fold")
 
   # 1
@@ -294,7 +294,7 @@ def base_train(data_tag, to_train=False, is_bin=False):
   # print('Test accuracy 2:', score[3])
 
   dataset = [x_train, y_train, x_test, y_test]
-  # save_history(dataset, model, num_classes, history, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, history_save_root, time_stamp)
+  save_history(dataset, model, num_classes, history, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, history_save_root, time_stamp)
   cmp_res = compare_all(dataset, num_classes, model, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp, is_bin=is_bin)
   # save_compare_result(cmp_res, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp)
 

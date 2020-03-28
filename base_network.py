@@ -28,15 +28,15 @@ from real_eigen import ReduceDimensionIdentity
 from real_eigen import FullConnectedNeuralNetwork, Softmax, EigenDist, EigenDistApprox
 from real_eigen import GATE_FACTOR, MAGIC_CODE, wrap_norm, raise_dim, get_time
 from load_data import load_data
-from save_history import save_history
-from other_models import lg, lda, qda, svm, compare_all, save_compare_result
+from save_history_network import save_history
+from other_models_netowrk import lg, lda, qda, svm, compare_all, save_compare_result
 
 batch_size = 128
 epochs = 12
 
 # state_len = 784
 
-WORK_MAGIC_CODE = "DNN_REDO_AECAN"
+WORK_MAGIC_CODE = "REDO_AECAN"
 
 data_tag = "mnist"
 
@@ -216,14 +216,16 @@ def build_model(state_len, num_classes):
 
   model = build_model_do(
     state_len, num_classes, 
-    to_raise=True, to_reduce=False, 
+    to_raise=False, to_reduce=True, 
     raise_quadratic=True, reduce_quadratic=True)
 
   # model = build_model_dnn(state_len, num_classes, to_raise=True, to_reduce=True)
 
   model.summary()
 
+  # vanilla
   # ECMM = EigenDist
+  # approx
   ECMM = EigenDistApprox
 
   # model.compile(loss=keras.losses.categorical_crossentropy,
@@ -291,9 +293,9 @@ def base_train(data_tag, to_train=False, is_bin=False):
   # print('Test accuracy:', score[2])
   # print('Test accuracy 2:', score[3])
 
-  # dataset = [x_train, y_train, x_test, y_test]
-  # save_history(dataset, model, num_classes, history, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, history_save_root, time_stamp)
-  # cmp_res = compare_all(dataset, model, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp, is_bin=is_bin)
+  dataset = [x_train, y_train, x_test, y_test]
+  save_history(dataset, model, num_classes, history, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, history_save_root, time_stamp)
+  cmp_res = compare_all(dataset, model, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp, is_bin=is_bin)
   # save_compare_result(cmp_res, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp)
 
   # print("Wait Nutstore to sync...")
