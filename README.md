@@ -2,9 +2,9 @@
 
 This is the repository for paper *Eigen component analysis: A quantum theory incorporated machine learning technique to find linearly maximum separable components.*
 
-It includes two parts for the experiments, eigen component analysis (ECA) and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
+ Eigen component analysis (ECA), in my humble opinion which I cannot say in the article,  is a top-ranking feature extraction or dimension reduction algorithm. The obtained eigenfeature matrix (EFM) and eigenfeature-class mapping matrix (ECMM) could be used to conduct the concrete dimension reduction. In ECAN, with the dimension operator, the nonlinear dimension reduction outperforms many classical algorithms which be reported in our future work.  
 
-ECA, in my humble opinion which I cannot say in the article,  is a top-ranking feature extraction or dimension reduction algorithm. The obtained eigenfeature matrix (EFM) and eigenfeature-class mapping matrix (ECMM) could be used to conduct the concrete dimension reduction. In ECAN, with the dimension operator, the nonlinear dimension reduction outperforms many classical algorithms which be reported in our future work.  
+It includes two parts for the experiments ,ECA and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
 
  I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I chose. I will merge the code and  add some comments to help you understand this project. 
 
@@ -96,6 +96,5 @@ python base_network.py
 
 
 [//]: # "The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments."
-
 [//]: # "Email: rzchen2014@gmail.com"
 
