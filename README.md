@@ -1,10 +1,12 @@
-# component analysis (ECA) introduction
+# Eigen component analysis (ECA) introduction
 
 This is the repository for paper *Eigen component analysis: A quantum theory incorporated machine learning technique to find linearly maximum separable components.*
 
- Eigen component analysis (ECA), in my humble opinion which I cannot say in the article,  is a top-ranking feature extraction or dimension reduction algorithm. The obtained eigenfeature matrix (EFM) and eigenfeature-class mapping matrix (ECMM) could be used to conduct the concrete dimension reduction. In ECAN, with the dimension operator, the nonlinear dimension reduction outperforms many classical algorithms which be reported in our future work.  
 
-It includes two parts for the experiments ,ECA and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
+
+It includes two parts for the experiments, Eigen component analysis (ECA) and eigen component analysis network (ECAN). Either ECA or ECAN can be trained with vanilla eigen copomnent analysis (VECA) or approximated eigen copomnent analysis (AECA). As the article mentioned, VECA often result in a sparse result and better option for dimension reduction. 
+
+ECA, in my humble opinion which I cannot say in the article,  is a top-ranking feature extraction or dimension reduction algorithm. The obtained eigenfeature matrix (EFM) and eigenfeature-class mapping matrix (ECMM) could be used to conduct the concrete dimension reduction. The concrete number of dimension reduction is near to the rank of whole data set if without background or noise. In addition, the variance ratio is close to 1 with this concrete dimension reduction. **For example, the concrete number of dimension reduction  for MNIST data set is 110 using VECA (or 328 using AECA) neither more or less. This could mean that the MNIST data set or the background/noise-free data set  only occupy a subspace with dimension 110. The difference between the result of VECA and AECA is that VECA ignored some less important information. **  In ECAN, with the dimension operator, the nonlinear dimension reduction outperforms many classical algorithms which be reported in our future work.  
 
  I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I choose. I will merge the code and  add some comments to help you understand this project. 
 
