@@ -93,14 +93,9 @@ python base_network.py
 
 
 
-```
-[comment]: <The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments.>
-
-```
 
 
+[//]: # "The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments."
 
-[//]: #	"Comment"
-
-Email: rzchen2014@gmail.com
+[//]: # "Email: rzchen2014@gmail.com"
 
