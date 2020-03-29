@@ -8,7 +8,15 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 # Quick start
 
+## Directory structure
+
 The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* will be uploaded later). The base model for training is named with prefix *base*. And ECAN related file are suffixed with *network*. Data loading is implemented in *load_data.py*. The comparison with other models is implemented in *other_models.py*. The obtained EFM, ECMM, RaDO or ReDO are stored in directory *history.* 
+
++   Complex ECA: complex_eigen.py, base_complex_eigen.py
++   Analytic ECA: analytic_eca.py
++   Approximated ECA: approx_eca, and the data set folder (art_data, dataset) should be copied into to run the code
+
+
 
 ## Train VECA
 
