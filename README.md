@@ -130,7 +130,7 @@ python base_network.py
 
 # Dimension reduction
 
-## ECA
+## Dimension reduction with ECA
 
 ```python
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
@@ -138,7 +138,7 @@ x /= x_norm
 x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
 ```
 
-## 2-fold ECAN
+## Dimension reduction with 2-fold ECAN
 
 ```python
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
