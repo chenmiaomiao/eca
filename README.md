@@ -27,7 +27,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is inde
 +   Analytic ECA: analytic_eca.py
 +   Approximated ECA: base_approx.py
 
-All the *data_tag* in base model could be changed to train other data sets. 
+All the *data_tag* in base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
 
 ## Train VECA
 
@@ -132,7 +132,7 @@ python base_approx.py
 
 # Dimension reduction
 
-In the history folder, with the corresponding magic and work magic code, we can find the obtained  EFM *P* , ECMM *LL*. In the 2-fold ECAN, EFM and ECMM has suffix a number indicating the corresponding fold. The RaDO or ReDO all belong to the 1st fold. In ECAN, the identity operator is installed every other fold since two consecutive dimension operators is trival. 
+In the history folder, with the corresponding MAGIC and WORK MAGIC code, we can find the obtained  EFM *P* , ECMM *LL*. In the 2-fold ECAN, EFM and ECMM has suffix a number indicating the corresponding fold. The RaDO or ReDO all belong to the 1st fold. In ECAN, the identity operator is installed every other fold since two consecutive dimension operators is trival. 
 
 ## Dimension reduction with ECA
 
