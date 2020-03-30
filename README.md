@@ -115,10 +115,10 @@ X1 = np.matmul(X,P[:,np.sum(L, axis=1)==1])
 
 
 
-## ECAN
+## 2-fold ECAN
 
 ```python
-psi = np.matmul(X,P)
+psi = np.matmul(X,P1)
 X1 = ReDO(psi)
 X2 = np.matmul(X1,P2[:,np.sum(L2, axis=1)==1])
 ```
