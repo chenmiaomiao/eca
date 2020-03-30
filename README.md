@@ -165,6 +165,7 @@ def ReDO(redo, psi, real_eca=True):
 	# guarantee the square root being legal in real ECA
 	if real_eca:
 		redo = redo * redo 					
+    
 	return np.sqrt(np.matmul(x, redo))
   
   
