@@ -140,11 +140,12 @@ x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
 The reducing dimension operator (ReDO) is defined as 
 
 ```python
-def ReDO(redo, psi):
+def ReDO(redo, psi, real_eca=True):
 	x = np.concatenate([[1], psi])
 	x = x * x
 	# in real ECA
-	redo = redo * redo 
+	if real_eca:
+		redo = redo * redo 					
 	return np.sqrt(np.matmul(x, redo))
   
   
