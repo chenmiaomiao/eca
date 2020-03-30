@@ -27,7 +27,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is inde
 +   Analytic ECA: analytic_eca.py
 +   Approximated ECA: base_approx.py
 
-
+All the data_tag in base model could be changed to train other data sets. 
 
 ## Train VECA
 
