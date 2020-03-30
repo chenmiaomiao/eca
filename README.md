@@ -130,7 +130,7 @@ python base_network.py
 
 # Dimension reduction
 
-In the history folder, for the corresponding magic and work magic code, we can find the obtained  EFM $P$ , ECMM $LL$. The ECAN has suffix a number indicating the corresponding fold. 
+In the history folder, for the corresponding magic and work magic code, we can find the obtained  EFM *P* , ECMM *LL*. The ECAN has suffix a number indicating the corresponding fold. 
 
 ## Dimension reduction with ECA
 
