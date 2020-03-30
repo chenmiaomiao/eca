@@ -138,17 +138,15 @@ x /= x_norm
 x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
 ```
 
-
-
-
-
 ## 2-fold ECAN
 
 ```python
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
 x /= x_norm
 psi = np.matmul(x,P1)
+
 x1 = ReDO(redo, psi)
+
 x1_norm = np.linalg.norm(x1, axis=1, keepdims=True)
 x1 /= x1_norm
 x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
@@ -160,6 +158,7 @@ The reducing dimension operator (ReDO) is defined as
 def ReDO(redo, psi, real_eca=True):
 	x = np.concatenate([[1], psi])
 	x = x * x
+  
 	# in real ECA
 	if real_eca:
 		redo = redo * redo 					
