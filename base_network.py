@@ -29,7 +29,7 @@ from real_eigen import FullConnectedNeuralNetwork, Softmax, EigenDist, EigenDist
 from real_eigen import GATE_FACTOR, MAGIC_CODE, wrap_norm, raise_dim, get_time
 from load_data import load_data
 from save_history_network import save_history
-from other_models_netowrk import lg, lda, qda, svm, compare_all, save_compare_result
+from other_models_network import lg, lda, qda, svm, compare_all, save_compare_result
 
 batch_size = 128
 epochs = 12
@@ -225,19 +225,23 @@ def build_model(state_len, num_classes):
 
   # vanilla
   # ECMM = EigenDist
+  # vanilla
+  # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
+                # loss_weights=[0.5, 0.5],
+                # optimizer=keras.optimizers.Adadelta(),
+                # metrics=['accuracy'])
+
   # approx
   ECMM = EigenDistApprox
-
   # model.compile(loss=keras.losses.categorical_crossentropy,
   # model.compile(loss=keras.losses.mean_squared_error,
   # model.compile(loss=categorical_bernoulli_crossentropy,
-  # vanilla
-  # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
   # approx
   model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
                 loss_weights=[0.5, 0.5],
                 optimizer=keras.optimizers.Adadelta(),
                 metrics=['accuracy'])
+
 
   return model
 

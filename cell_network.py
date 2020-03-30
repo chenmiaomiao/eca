@@ -19,6 +19,7 @@ import real_eigen as RealEigen
 # from real_eigen import ProjectionRBF as Projection
 from real_eigen import Projection as Projection
 from real_eigen import Proj2Prob
+from real_eigen import GodRaiseDimension
 from real_eigen import RaiseDimension
 from real_eigen import RaiseDimensionNonQuadratic
 from real_eigen import RaiseDimensionIdentity
@@ -36,7 +37,7 @@ epochs = 64
 
 # state_len = 784
 
-WORK_MAGIC_CODE = "REDO_AECAN"
+WORK_MAGIC_CODE = "REDO_VECAN_NO_NOISE"
 
 data_tag = "cell"
 
@@ -95,6 +96,71 @@ def build_model_do(
       RaDO = RaiseDimensionNonQuadratic
     else:
       RaDO = RaiseDimension
+      # RaDO = ReduceDimension
+  else:
+    raised_dim = state_len
+    RaDO = RaiseDimensionIdentity
+
+  state_len1 = raised_dim
+
+  if to_reduce:
+    reduced_dim = 64
+    if not reduce_quadratic:
+      ReDO = ReduceDimensionNonQuadratic
+    else:
+      ReDO = ReduceDimension
+  else:
+    reduced_dim = state_len1
+    ReDO = ReduceDimensionIdentity
+
+
+  inputs = Input(shape=(1, state_len))
+  # 1
+  raise_dimension1 = RaDO(raised_dim, input_shape=(1, state_len), name="rado")
+  projection1 = Projection(state_len1, input_shape=(1, state_len1), name="p1")
+  proj2prob1 = Proj2Prob(state_len1, input_shape=(1, state_len1))
+  eigen_dist1 = ECMM(num_classes, input_shape=(1, state_len1), name="l1")
+  flatten1 = Flatten(name="1st_fold")
+
+  reduce_dimension1= ReDO(reduced_dim, input_shape=(1, state_len1), name="redo")
+
+  # 2
+  state_len2 = reduced_dim
+  projection2 = Projection(state_len2, input_shape=(1, state_len2), name="p2")
+  proj2prob2 = Proj2Prob(state_len2, input_shape=(1, state_len2))
+  eigen_dist2 = ECMM(num_classes, input_shape=(1, state_len2), name="l2")
+  flatten2 = Flatten(name="2nd_fold")
+
+  # 1
+  a0 = raise_dimension1(inputs)
+  a1 = projection1(a0)
+  a2 = proj2prob1(a1)
+  o1 = flatten1(eigen_dist1(a2))
+  a1 = reduce_dimension1(a1)
+
+  # 2
+  b1 = projection2(a1)
+  b2 = proj2prob2(b1)
+  o2 = flatten2(eigen_dist2(b2))
+
+  model = Model(inputs, outputs=[o1, o2])
+
+
+
+  return model
+
+
+def god_build_model_do(
+  state_len, num_classes, 
+  activation="relu", 
+  to_raise=True, to_reduce=True, reduce_quadratic=True):
+  global ECMM
+  print("Building model...")
+
+
+  if to_raise:
+    raised_dim = state_len+1
+    RaDO = GodRaiseDimension
   else:
     raised_dim = state_len
     RaDO = RaiseDimensionIdentity
@@ -217,25 +283,34 @@ def build_model(state_len, num_classes):
   model = build_model_do(
     state_len, num_classes, 
     to_raise=False, to_reduce=True, 
-    raise_quadratic=False, reduce_quadratic=True)
+    raise_quadratic=True, reduce_quadratic=True)
+
+  # model = god_build_model_do(
+  #   state_len, num_classes, 
+  #   to_raise=True, to_reduce=True, reduce_quadratic=True)
 
   # model = build_model_dnn(state_len, num_classes, to_raise=True, to_reduce=True)
 
   model.summary()
 
-  # ECMM = EigenDist
-  ECMM = EigenDistApprox
-
-  # model.compile(loss=keras.losses.categorical_crossentropy,
-  # model.compile(loss=keras.losses.mean_squared_error,
-  # model.compile(loss=categorical_bernoulli_crossentropy,
   # vanilla
-  # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
-  # approx
-  model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+  ECMM = EigenDist
+  # vanilla
+  model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
                 loss_weights=[0.5, 0.5],
                 optimizer=keras.optimizers.Adadelta(),
                 metrics=['accuracy'])
+
+  # approx
+  # ECMM = EigenDistApprox
+  # model.compile(loss=keras.losses.categorical_crossentropy,
+  # model.compile(loss=keras.losses.mean_squared_error,
+  # model.compile(loss=categorical_bernoulli_crossentropy,
+  # approx
+  # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+                # loss_weights=[0.5, 0.5],
+                # optimizer=keras.optimizers.Adadelta(),
+                # metrics=['accuracy'])
 
   return model
 
@@ -252,7 +327,7 @@ def base_train(data_tag, to_train=False, is_bin=False):
   time_stamp = get_time()
   print(time_stamp)
   model_save_root = f"checkpoints/{data_tag}/{MAGIC_CODE}"
-  history_save_root = f"history/{data_tag}/{MAGIC_CODE}/{time_stamp}"
+  history_save_root = f"history/{data_tag}/{MAGIC_CODE}/{WORK_MAGIC_CODE}/{time_stamp}"
   os.makedirs(model_save_root, exist_ok=True)
   os.makedirs(history_save_root, exist_ok=True)
 
@@ -264,8 +339,8 @@ def base_train(data_tag, to_train=False, is_bin=False):
     # earlystopper = EarlyStopping(patience=10, verbose=1, monitor="val_acc")
     # checkpointer = ModelCheckpoint(model_universal, verbose=1, save_best_only=True, monitor="val_acc")
 
-    earlystopper = EarlyStopping(patience=10, verbose=1)
-    checkpointer = ModelCheckpoint(model_universal, verbose=1, save_best_only=True, monitor="val_2nd_fold_acc")
+    earlystopper = EarlyStopping(patience=5, verbose=1)
+    checkpointer = ModelCheckpoint(model_universal, verbose=1, save_best_only=True)
 
     # reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=1, epsilon=1e-4, mode='min')
     history = model.fit(x_train, [y_train, y_train],
@@ -298,11 +373,11 @@ def base_train(data_tag, to_train=False, is_bin=False):
   cmp_res = compare_all(dataset, num_classes, model, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp, is_bin=is_bin)
   # save_compare_result(cmp_res, data_tag, WORK_MAGIC_CODE, MAGIC_CODE, time_stamp)
 
-  # print("Wait Nutstore to sync...")
-  # import time
-  # time.sleep(5)
+  print("Wait Nutstore to sync...")
+  import time
+  time.sleep(5)
 
-  # shutil.copy(f"history_{data_tag}.txt", f"{history_save_root}/")
+  shutil.copy(f"history_{data_tag}.txt", f"{history_save_root}/")
 
 if __name__ == '__main__':
   base_train(data_tag, to_train=True, is_bin=False)
