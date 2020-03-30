@@ -159,7 +159,7 @@ The reducing dimension operator (ReDO) is defined as
 
 ```python
 def ReDO(redo, psi, real_eca=True):
-	x = np.concatenate([[1], psi])
+	x = np.concatenate([np.ones(psi.shape[0],), psi],axis=1)
 	x = x * x
   
 	# guarantee the square root being legal in real ECA
