@@ -143,12 +143,15 @@ x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
 ```python
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
 x /= x_norm
+# change of basis
 psi = np.matmul(x,P1)
 
+# nonlinear dimension reduction
 x1 = ReDO(redo, psi)
 
 x1_norm = np.linalg.norm(x1, axis=1, keepdims=True)
 x1 /= x1_norm
+# linear dimension reduction
 x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
 ```
 
