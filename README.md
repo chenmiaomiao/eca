@@ -22,7 +22,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* will be
 
 +   The files include twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
 
-+   Set the *to_train* option to be True otherwise it will just test on previous saved model.
++   Set the *to_train* option to be **True** otherwise it will just test on previous saved model.
 
 +   Then training on Wis1992 should be 
 
@@ -79,7 +79,7 @@ python base_approx.py
                     metrics=['accuracy'])
     ```
 
-+   Set *to_train* to be True and training on MNIST data set
++   Set *to_train* to be **True** and training on MNIST data set
 
 ```bash
 python base_network.py
