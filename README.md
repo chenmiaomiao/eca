@@ -14,7 +14,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* will be
 
 +   Complex ECA: complex_eigen.py, base_complex_eigen.py
 +   Analytic ECA: analytic_eca.py
-+   Approximated ECA: approx_eca, and the data set folder (art_data, dataset) should be copied into to run the code
++   Approximated ECA: base_approx.py, and the data set folder (art_data, dataset) should be copied into to run the code
 
 
 
