@@ -6,6 +6,8 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 [//]: # "I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I chosen. I will merge the code and  add some comments to help you understand this project. "
 
+[TOC]
+
 # Quick start
 
 ## Directory structure
