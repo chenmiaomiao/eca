@@ -127,11 +127,20 @@ x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
 
 ```python
 psi = np.matmul(x,P1)
-x1 = ReDO(psi)
+x1 = ReDO(redo, psi)
 x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
 ```
 
-The reducing dimension operator (ReDO) is defined as $ D \psi = \sqrt{\begin{bmatrix}1 \\ \psi^2 \end{bmatrix}} $
+The reducing dimension operator (ReDO) is defined as 
+
+```python
+def ReDO(redo, psi):
+	x = np.concatenate([[1], x1])
+	x = x * x
+	return np.matmul(x, redo)
+```
+
+
 
 
 
