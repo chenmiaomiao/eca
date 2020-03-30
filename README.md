@@ -6,7 +6,16 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 [//]: # "I will upload the enviroment requirements later. I know the code is kind of messy, since I created many branches in this project and this repository is just one branch I chosen. I will merge the code and  add some comments to help you understand this project. "
 
-[TOC]
+- [Eigen component analysis (ECA) introduction](#eigen-component-analysis--eca--introduction)
+- [Quick start](#quick-start)
+  * [Directory structure](#directory-structure)
+  * [Train VECA](#train-veca)
+  * [Train AECA](#train-aeca)
+  * [Train the 2-fold ECAN with AECA on MNIST data set](#train-the-2-fold-ecan-with-aeca-on-mnist-data-set)
+  * [Train the 2-fold ECAN with VECA on MNIST data set](#train-the-2-fold-ecan-with-veca-on-mnist-data-set)
+- [Dimension reduction](#dimension-reduction)
+  * [ECA](#eca)
+  * [2-fold ECAN](#2-fold-ecan)
 
 # Quick start
 
