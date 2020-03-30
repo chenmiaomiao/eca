@@ -135,7 +135,7 @@ python base_network.py
 ```python
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
 x /= x_norm
-x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
+x1 = np.matmul(x,P[:,np.sum(LL, axis=1)==1])
 ```
 
 ## Dimension reduction with 2-fold ECAN
@@ -152,7 +152,7 @@ x1 = ReDO(redo, psi)
 x1_norm = np.linalg.norm(x1, axis=1, keepdims=True)
 x1 /= x1_norm
 # linear dimension reduction
-x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
+x2 = np.matmul(x1,P2[:,np.sum(LL2, axis=1)==1])
 ```
 
 The reducing dimension operator (ReDO) is defined as 
