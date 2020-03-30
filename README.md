@@ -95,9 +95,11 @@ python base_approx.py
 
 +   Set *to_train* to be **True** and training on MNIST data set
 
-```bash
-python base_network.py
-```
+    ```bash
+    python base_network.py
+    ```
+
+    
 
 
 
