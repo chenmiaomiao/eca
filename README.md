@@ -64,14 +64,17 @@ python base_approx.py
     ```python
       # vanilla
       # ECMM = EigenDist
+      # vanilla
+      # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
+                    # loss_weights=[0.5, 0.5],
+                    # optimizer=keras.optimizers.Adadelta(),
+                    # metrics=['accuracy'])
+    
       # approx
       ECMM = EigenDistApprox
-    
       # model.compile(loss=keras.losses.categorical_crossentropy,
       # model.compile(loss=keras.losses.mean_squared_error,
       # model.compile(loss=categorical_bernoulli_crossentropy,
-      # vanilla
-      # model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
       # approx
       model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
                     loss_weights=[0.5, 0.5],
@@ -94,19 +97,22 @@ python base_network.py
 ```python
   # vanilla
   ECMM = EigenDist
-  # approx
-  # ECMM = EigenDistApprox
-
-  # model.compile(loss=keras.losses.categorical_crossentropy,
-  # model.compile(loss=keras.losses.mean_squared_error,
-  # model.compile(loss=categorical_bernoulli_crossentropy,
   # vanilla
   model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
-  # approx
-  # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
                 loss_weights=[0.5, 0.5],
                 optimizer=keras.optimizers.Adadelta(),
                 metrics=['accuracy'])
+
+  # approx
+  # ECMM = EigenDistApprox
+  # model.compile(loss=keras.losses.categorical_crossentropy,
+  # model.compile(loss=keras.losses.mean_squared_error,
+  # model.compile(loss=categorical_bernoulli_crossentropy,
+  # approx
+  # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+  #               loss_weights=[0.5, 0.5],
+  #               optimizer=keras.optimizers.Adadelta(),
+  #               metrics=['accuracy'])
 ```
 
 
