@@ -131,7 +131,7 @@ x1 = ReDO(psi)
 x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
 ```
 
-The reducing dimension operator (ReDO) is defined as $D \psi = \sqrt{\begin{bmatrix}1 \\ \psi^2 \end{bmatrix}}$
+The reducing dimension operator (ReDO) is defined as $ D \psi = \sqrt{\begin{bmatrix}1 \\ \psi^2 \end{bmatrix}} $
 
 
 
