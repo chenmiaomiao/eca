@@ -108,7 +108,7 @@ python base_network.py
 ## ECA
 
 ```python
-X1 = np.matmul(X,P[:,np.sum(L, axis=1)==1])
+x1 = np.matmul(x,P[:,np.sum(L, axis=1)==1])
 ```
 
 
@@ -118,9 +118,9 @@ X1 = np.matmul(X,P[:,np.sum(L, axis=1)==1])
 ## 2-fold ECAN
 
 ```python
-psi = np.matmul(X,P1)
-X1 = ReDO(psi)
-X2 = np.matmul(X1,P2[:,np.sum(L2, axis=1)==1])
+psi = np.matmul(x,P1)
+x1 = ReDO(psi)
+x2 = np.matmul(x1,P2[:,np.sum(L2, axis=1)==1])
 ```
 
 
