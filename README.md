@@ -32,7 +32,15 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* will be
 
 ## Train AECA
 
-I will upload this part of code later. 
+[//]: # "I will upload this part of code later. "
+
+One could change the data_tag to test other data sets.
+
+```bash
+python base_approx.py
+```
+
+
 
 ## Train the 2-fold ECAN with AECA on MNIST data set
 
