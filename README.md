@@ -70,7 +70,7 @@ python base_approx.py
     # model = build_model_dnn(state_len, num_classes, to_raise=True, to_reduce=True)
     ```
 
-+   Use VECA or AECA
++   Train with AECA
 
     ```python
       # vanilla
@@ -103,7 +103,7 @@ python base_network.py
 
 ## Train the 2-fold ECAN with VECA on MNIST data set
 
-+   The only difference is in this block of code
++   The only difference from training with AECA is in this block of code
 
 ```python
   # vanilla
