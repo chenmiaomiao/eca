@@ -137,7 +137,7 @@ The reducing dimension operator (ReDO) is defined as
 def ReDO(redo, psi):
 	x = np.concatenate([[1], x1])
 	x = x * x
-	return np.matmul(x, redo)
+	return np.sqrt(np.matmul(x, redo))
 ```
 
 
