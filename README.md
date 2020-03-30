@@ -103,6 +103,26 @@ python base_network.py
 
 
 
+# Dimension reduction
+
+## ECA
+
+```python
+X1 = np.matmul(X,P[:,np.sum(L, axis=1)==1])
+```
+
+
+
+
+
+## ECAN
+
+```
+psi = np.matmul(X,P)
+X1 = ReDO(psi)
+X2 = np.matmul(X1,P2[:,np.sum(L2, axis=1)==1])
+```
+
 
 
 [//]: # "The code is kind of messy cuz of commented code, yet, I am still a perfect progrmamer. As my code is often self-explainable, so, marginal comments."
