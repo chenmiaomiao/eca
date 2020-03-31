@@ -132,7 +132,7 @@ python base_approx.py
 
 # Dimension reduction
 
-In the history folder, with the corresponding MAGIC and WORK MAGIC code, we can find the obtained  EFM *P* , ECMM *LL*. In the 2-fold ECAN, EFM and ECMM has suffix a number indicating the corresponding fold. The RaDO or ReDO all belong to the 1st fold. In ECAN, the identity operator is installed every other fold since two consecutive dimension operators is trival. 
+In the history folder, with the corresponding MAGIC and WORK MAGIC code, we can find the obtained  EFM *P* , ECMM *LL*. In the 2-fold ECAN, EFM and ECMM has suffix a number indicating the corresponding fold. The RaDO or ReDO all belong to the 1st fold. In ECAN, the identity operator is installed every other fold since two consecutive dimension operators in a row are trival. 
 
 ## Dimension reduction with ECA
 
