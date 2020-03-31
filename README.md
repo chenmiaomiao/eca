@@ -137,6 +137,8 @@ In the history folder, with the corresponding MAGIC and WORK MAGIC code, we can 
 ## Dimension reduction with ECA
 
 ```python
+LL = np.round(LL)
+
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
 x /= x_norm
 x1 = np.matmul(x,P[:,np.sum(LL, axis=1)==1])
@@ -145,6 +147,8 @@ x1 = np.matmul(x,P[:,np.sum(LL, axis=1)==1])
 ## Dimension reduction with 2-fold ECAN
 
 ```python
+LL = np.round(LL)
+
 x_norm = np.linalg.norm(x, axis=1, keepdims=True)
 x /= x_norm
 # change of basis
