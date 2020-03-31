@@ -23,9 +23,9 @@ ECA, in my humble opinion which I cannot say in the article,  is a top-ranking f
 
 The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is independently implemented). The base model for training is named with prefix *base*. And ECAN related file are suffixed with *network*. Data loading is implemented in *load_data.py*. The comparison with other models is implemented in *other_models.py*. The obtained EFM, ECMM, RaDO or ReDO are stored in directory *history.* 
 
-+   Complex ECA: complex_eigen.py, base_complex_eigen.py
 +   Analytic ECA: analytic_eca.py
 +   Approximated ECA: base_approx.py
++   Complex ECA: complex_eigen.py, base_complex_eigen.py
 
 All the *data_tag* in base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
 
