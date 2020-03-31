@@ -27,7 +27,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is inde
 +   Approximated ECA: base_approx.py
 +   Complex ECA: complex_eigen.py, base_complex_eigen.py
 
-All the *data_tag* in base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
+All the *data_tag* in analytic ECA and base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
 
 ## Train VECA
 
