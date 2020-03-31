@@ -31,7 +31,7 @@ All the *data_tag* in analytic ECA and base model could be changed to train othe
 
 ## Train VECA
 
-+   The files include twodim.py, threedim.py, bc.py, wis.py, mnist.py correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
++   The files include twodim.py  (```data_tag=2d```), threedim.py (```data_tag=3d```), bc.py (```data_tag=breast_cancer```), wis.py (```data_tag=wis```), mnist.py (```data_tag=mnist```) correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
 
 +   Set the *to_train* option to be **True** otherwise it will just test on previous saved model.
 
