@@ -107,26 +107,28 @@ python base_approx.py
 
 +   The only difference from training with AECA is in this block of code
 
-```python
-  # vanilla
-  ECMM = EigenDist
-  # vanilla
-  model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
-                loss_weights=[0.5, 0.5],
-                optimizer=keras.optimizers.Adadelta(),
-                metrics=['accuracy'])
+    ```python
+    # vanilla
+    ECMM = EigenDist
+    # vanilla
+    model.compile(loss=[categorical_bernoulli_crossentropy, categorical_bernoulli_crossentropy],
+                  loss_weights=[0.5, 0.5],
+                  optimizer=keras.optimizers.Adadelta(),
+                  metrics=['accuracy'])
+    
+    # approx
+    # ECMM = EigenDistApprox
+    # model.compile(loss=keras.losses.categorical_crossentropy,
+    # model.compile(loss=keras.losses.mean_squared_error,
+    # model.compile(loss=categorical_bernoulli_crossentropy,
+    # approx
+    # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
+    #               loss_weights=[0.5, 0.5],
+    #               optimizer=keras.optimizers.Adadelta(),
+    #               metrics=['accuracy'])
+    ```
 
-  # approx
-  # ECMM = EigenDistApprox
-  # model.compile(loss=keras.losses.categorical_crossentropy,
-  # model.compile(loss=keras.losses.mean_squared_error,
-  # model.compile(loss=categorical_bernoulli_crossentropy,
-  # approx
-  # model.compile(loss=[categorical_crossentropy, categorical_crossentropy],
-  #               loss_weights=[0.5, 0.5],
-  #               optimizer=keras.optimizers.Adadelta(),
-  #               metrics=['accuracy'])
-```
+    
 
 
 
