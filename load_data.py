@@ -596,7 +596,7 @@ def load_cell():
 
 	data = loadmat("dataset/train_xy.mat")
 	data = data["train_xy"]
-	x = data[:,:-1]
+	x = data[:,:-2]
 	y = data[:,-1]
 	y = y.astype(int)
 
@@ -654,6 +654,87 @@ def load_cell():
 
 	return state_len, num_classes, x_train, y_train, x_test, y_test
 
+def load_yinheng(sub_dir, is_augmented=False):
+
+	aug = ("no_sampled", "sampled")[is_augmented]
+
+	root = os.path.join("dataset/yinheng/", aug, sub_dir)
+	x_train_path = os.path.join(root, "X_train.csv")
+	x_test_path = os.path.join(root, "X_test.csv")
+	y_train_path = os.path.join(root, "y_train.csv")
+	y_test_path = os.path.join(root, "y_test.csv")
+
+	with open(x_train_path, "r") as fd:
+		x_ncols = len(fd.readline().split(","))
+	with open(y_train_path, "r") as fd:
+		y_ncols = len(fd.readline().split(","))
+
+	x_train = np.loadtxt(x_train_path, delimiter=",", skiprows=1, usecols=range(1, x_ncols))
+	x_test = np.loadtxt(x_test_path, delimiter=",", skiprows=1, usecols=range(1, x_ncols))
+	y_train = np.loadtxt(y_train_path, delimiter=",", skiprows=1, usecols=range(1, y_ncols))
+	y_test = np.loadtxt(y_test_path, delimiter=",", skiprows=1, usecols=range(1, y_ncols))
+
+	x_train = x_train.reshape(x_train.shape[0], -1)
+	x_test = x_test.reshape(x_test.shape[0], -1)
+
+	if x_train.shape[-1] == 1:
+		x_train = np.concatenate([np.zeros(x_train.shape), x_train], axis=1)
+		x_test = np.concatenate([np.zeros(x_test.shape), x_test], axis=1)
+
+
+	# x_train_col_sum = np.sum(x_train, axis=0)
+	# x_train = x_train[:, np.where(x_train_col_sum != 0)]
+	# x_test = x_test[:, np.where(x_train_col_sum != 0)]
+
+	sample_ratio = 2
+
+	x_train = np.repeat(x_train, (y_train == 1) * sample_ratio + 1, axis=0)
+	y_train = np.repeat(y_train, (y_train == 1) * sample_ratio + 1, axis=0)
+
+	# x_train = np.repeat(x_train, 10, axis=0)
+	# y_train = np.repeat(y_train, 10, axis=0)
+
+
+	p = np.random.permutation(x_train.shape[0])
+	x_train = x_train[p]
+	y_train = y_train[p]
+
+	state_len = x_train.shape[-1]
+	num_classes = len(np.unique(y_train))
+
+	print(x_train.shape)
+	print(x_test.shape)
+	print(y_train.shape)
+	print(y_test.shape)
+
+	x_train = x_train.astype('float32')
+	x_test = x_test.astype('float32')
+	# x_train /= np.max(x_train)
+	# x_test /= np.max(x_train)
+	# x_train -= np.mean(x_train, axis=0, keepdims=True)
+	# x_test -= np.mean(x_train, axis=0, keepdims=True)
+
+	#x_train = wrap_norm(x_train, np.linalg.norm(x_train, axis=1, keepdims=True))
+	#x_test = wrap_norm(x_test, np.linalg.norm(x_test, axis=1, keepdims=True))
+	#state_len += 1
+
+	x_train = x_train.reshape(-1, 1, state_len)
+	x_test = x_test.reshape(-1, 1, state_len)
+
+	print(np.dot(x_train[0], x_train[0].T))
+
+	print('x_train shape:', x_train.shape)
+	print('y_train shape:', y_train.shape)
+	print(x_train.shape[0], 'train samples')
+	print(x_test.shape[0], 'test samples')
+
+
+	# convert class vectors to binary class matrices
+	y_train = keras.utils.to_categorical(y_train, num_classes)
+	y_test = keras.utils.to_categorical(y_test, num_classes)
+
+	return state_len, num_classes, x_train, y_train, x_test, y_test
+
 def load_titanic():
 	pass
 
@@ -663,7 +744,46 @@ def load_red_mansions():
 def load_shakespear():
 	pass
 
-def load_data(data_tag):
+def load_triple_gaussian():
+	x1 = np.random.normal(-1, 0.5, 1000)
+	x2 = np.random.normal(0, 0.5, 1000)
+	x3 = np.random.normal(1, 0.5, 1000)
+
+	x = np.concatenate([x1, x2, x3], axis=0)
+	x = x.reshape(-1, 1)
+	x = np.concatenate([np.zeros(x.shape), x*x, x], axis=1)
+
+	y = np.concatenate([np.ones(x1.shape)*0, np.ones(x1.shape)*1, np.ones(x1.shape)*2,])
+
+	# p = np.random.permutation(x.shape[0])
+
+	x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=723)
+
+	state_len = 3
+	num_classes = 3
+
+	x_train = x_train.astype('float32')
+	x_test = x_test.astype('float32')
+	x_train /= np.max(x_train)
+	x_test /= np.max(x_train)
+	x_train = x_train.reshape(-1, 1, state_len)
+	x_test = x_test.reshape(-1, 1, state_len)
+
+	print(np.dot(x_train[0], x_train[0].T))
+
+	print('x_train shape:', x_train.shape)
+	print('y_train shape:', y_train.shape)
+
+	print(x_train.shape[0], 'train samples')
+	print(x_test.shape[0], 'test samples')
+
+	# convert class vectors to binary class matrices
+	y_train = keras.utils.to_categorical(y_train, num_classes)
+	y_test = keras.utils.to_categorical(y_test, num_classes)
+
+	return state_len, num_classes, x_train, y_train, x_test, y_test
+
+def load_data_agent(data_tag):
 	if data_tag == "mnist":
 		return load_mnist()
 
@@ -699,9 +819,24 @@ def load_data(data_tag):
 
 	elif data_tag == "cell":
 		return load_cell()
+	elif data_tag == "triple_gaussian":
+	 return load_triple_gaussian()
+
+	elif data_tag.startswith("yinheng"):
+		aug, sub_dir = data_tag.split("_")[1:]
+		return load_yinheng(sub_dir, aug == "aug")
 
 	else:
 		raise ValueError("Unrecognized data tag. ")
+
+def load_data(data_tag, centralized=False):
+	state_len, num_classes, x_train, y_train, x_test, y_test = load_data_agent(data_tag)
+
+	if centralized:
+		x_train -= np.mean(x_train, axis=0, keepdims=True)
+		x_test -= np.mean(x_test, axis=0, keepdims=True)
+
+	return state_len, num_classes, x_train, y_train, x_test, y_test
 
 
 

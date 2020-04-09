@@ -238,6 +238,9 @@ def plot_proj_dist(all_projs, y, num_classes, x_plots, y_plots, history_root, de
     idx = 0
     for i in range(x_plots):
         for j in range(y_plots):
+            axes[i, j].set_xlabel(f"Projection on eigenfeature {i}")
+            axes[i, j].set_ylabel("Frequency")
+
             for k in range(num_classes):
                 # print(idx)
                 axes[i, j].hist(all_projs[:, idx][y == k], bins="auto", alpha=0.1*(10-k/2), density=density)
@@ -252,6 +255,61 @@ def plot_proj_dist(all_projs, y, num_classes, x_plots, y_plots, history_root, de
     plt.subplots_adjust(hspace=0.4, wspace=0.2)
     plt.savefig(proj_dist_save_path, dpi=300)
     plt.close()
+
+
+
+
+def plot_proj_dist_yinheng(dataset, num_classes, P, LL, history_root, density=False):
+    freq_or_density = ("freq", "density")[density]
+    proj_dist_save_path = os.path.join(history_root, f"proj_{freq_or_density}_dist_ef.png")
+
+    x_train, y_train, x_test, y_test = dataset
+    x_train = np.squeeze(x_train)
+    x_test = np.squeeze(x_test)
+    y_train = np.argmax(y_train, axis=1)
+    y_test = np.argmax(y_test, axis=1)
+
+    x_train /= np.linalg.norm(x_train, axis=1, keepdims=True)
+    x_test /= np.linalg.norm(x_test, axis=1, keepdims=True)
+
+    x_train_projs = x_train.dot(P)
+    x_test_projs = x_test.dot(P)
+    x_projs = np.concatenate([x_train, x_test], axis=0).dot(P)
+
+    print(x_train_projs.shape)
+
+    y = np.concatenate([y_train, y_test], axis=0)
+
+    x_plots = P.shape[0]
+    y_plots = 3
+
+    fig, axes = plt.subplots(x_plots, y_plots)
+    fig.tight_layout()
+    fig.set_size_inches(13, 13, forward=True)
+
+    for i in range(x_plots):
+        for j in range(y_plots):
+            for k in range(num_classes):
+                if j == 0:
+                    axes[i, j].hist(x_train_projs[:, i][y_train == k], bins="auto", alpha=0.5, density=density)
+                elif j == 1:
+                    axes[i, j].hist(x_test_projs[:, i][y_test == k], bins="auto", alpha=0.5, density=density)
+                else:
+                    axes[i, j].hist(x_projs[:, i][y == k], bins="auto", alpha=0.5, density=density)
+
+            leg = axes[i, j].legend([f"class {l}" for l in range(num_classes)], 
+                fancybox=True, framealpha=0.5, loc="best")
+
+
+
+    plt.subplots_adjust(hspace=0.4, wspace=0.2)
+    plt.savefig(proj_dist_save_path, dpi=300)
+    plt.close()
+
+
+
+
+
 
 # def plot_prob_dist(all_probs, y, num_classes, x_plots, y_plots, history_root, density=False):
 #     freq_or_density = ("freq", "density")[density]
@@ -565,6 +623,7 @@ def save_degeneracy_pure_eigenvalues(LL, num_classes, history_root):
 
 
 
+
 def save_history(dataset, model, num_classes, history, data_tag, work_magic_code, magic_code, history_root, time_stamp):
     P_save_path = os.path.join(history_root, "P.npy")
     PP_save_path = os.path.join(history_root, "PP.npy")
@@ -640,6 +699,9 @@ def save_history(dataset, model, num_classes, history, data_tag, work_magic_code
         
         # save_merged(P, LL_rounded, history_root)
         # save_merged_all(P, LL_rounded, history_root)
+
+    if data_tag.startswith("yinheng"):
+        plot_proj_dist_yinheng(dataset, num_classes, P, np.round(LL), history_root)
 
 
 
