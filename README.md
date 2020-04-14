@@ -36,7 +36,7 @@ RealEigen.HP_ORTHONORMAL = 0.001
 RealEigen.HP_EIGENDIST = 0.001
 ```
 
-They both can be set as a small number (```1e3``` or smaller) with a relative large number of training epochs. For data set with lower dimension, a relative large value on these two hyperparameters will accelerate convergence. The relaxing constraint on EFM usually make no difference. However, if the obtained ECMM is not binary, the corresponding hyperparamters should be set larger. 
+They both can be set as a small number (```1e3``` or smaller) with a relative large number of training epochs. For data set with lower dimension, a relative large value on these two hyperparameters will accelerate convergence. The relaxing constraint on EFM usually make no difference. However, if the obtained ECMM is not binary, the corresponding hyperparameters should be set larger. 
 
 ## Train VECA
 
