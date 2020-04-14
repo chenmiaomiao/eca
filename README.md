@@ -29,6 +29,15 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is inde
 
 All the *data_tag* in analytic ECA and base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
 
+Two hyperparameters for the constraints on EFM and ECMM should be set. 
+
+```python
+RealEigen.HP_ORTHONORMAL = 0.001
+RealEigen.HP_EIGENDIST = 0.001
+```
+
+They both can be set as a small number (```1e3``` or smaller) with a relative large number of training epochs. For data set with lower dimension, a relative large value on these two hyperparameters will accelerate convergence. The relaxing constraint on EFM usually make no difference. However, if the obtained ECMM is not binary, the corresponding hyperparamters should be set larger. 
+
 ## Train VECA
 
 +   The files include twodim.py  (```data_tag="2d"```), threedim.py (```data_tag="3d"```), bc.py (```data_tag="breast_cancer"```), wis.py (```data_tag="wis"```), mnist.py (```data_tag="mnist"```) correspoinding to 2D, 3D, Wis1992, Wis1995, MNIST data set mentioned in the article. 
