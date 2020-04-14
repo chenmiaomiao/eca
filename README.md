@@ -29,7 +29,7 @@ The core algorithm is implemented in *real_eigen.py* (*complex_eigen.py* is inde
 
 All the *data_tag* in analytic ECA and base model could be changed to train other data sets. The history and checkpoints are managed by MAGIC_CODE in *real_eigen.py/complex_eigen.py* and WORK_MAGIC_CODE in each to-be-executed file.
 
-Two hyperparameters for the constraints on EFM and ECMM should be set. 
+Two hyperparameters for the constraints on EFM and ECMM should be set before training:
 
 ```python
 RealEigen.HP_ORTHONORMAL = 0.001
